@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LifeLink | Blood Donation Website</title>
+        <style>
+            :root {
+                --red: #d92d43;
+                --red-dark: #b91f35;
+                --ink: #17212b;
+                --muted: #667085;
+                --soft: #fff3f4;
+                --line: #eaecf0;
+                --bg: #f8fafc;
+                --green: #16845b;
+                --shadow: 0 12px 35px rgba(16,24,40,.08)
+            }
+
+            * {
+                box-sizing: border-box
+            }
+
+            body {
+                margin: 0;
+                font-family: Inter,Segoe UI,Arial,sans-serif;
+                color: var(--ink);
+                background: var(--bg);
+                line-height: 1.55
+            }
+
+            button,input,select,textarea {
+                font: inherit
+            }
+
+            button {
+                cursor: pointer
+            }
+
+            .topbar {
+                background: #fff;
+                border-bottom: 1px solid var(--line);
+                position: sticky;
+                top: 0;
+                z-index: 10
+            }
+
+            .nav {
+                max-width: 1160px;
+                margin: auto;
+                padding: 14px 22px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 800;
+                font-size: 21px;
+                letter-spacing: -.5px
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+                background: var(--red);
+                color: white;
+                display: grid;
+                place-items: center;
+                font-size: 21px
+            }
+
+            .brand span small {
+                display: block;
+                color: var(--muted);
+                font-size: 10px;
+                letter-spacing: 1.5px;
+                font-weight: 700
+            }
+
+            .navlinks {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+                flex-wrap: wrap
+            }
+
+            .navlinks button {
+                border: 0;
+                background: transparent;
+                padding: 9px 12px;
+                border-radius: 9px;
+                color: #475467;
+                font-weight: 650
+            }
+
+            .navlinks button.active,.navlinks button:hover {
+                background: var(--soft);
+                color: var(--red-dark)
+            }
+
+            .navlinks .nav-cta {
+                background: var(--red);
+                color: #fff;
+                padding: 10px 15px
+            }
+
+            .navlinks .nav-cta:hover {
+                background: var(--red-dark);
+                color: white
+            }
+
+            .menu {
+                display: none;
+                border: 1px solid var(--line);
+                background: white;
+                border-radius: 9px;
+                padding: 8px 11px
+            }
+
+            main {
+                max-width: 1160px;
+                margin: auto;
+                padding: 28px 22px 60px
+            }
+
+            .hero {
+                background: linear-gradient(115deg,#fff0f1,#fff 65%,#fff7f2);
+                border: 1px solid #ffe0e3;
+                border-radius: 25px;
+                padding: 58px 6%;
+                display: grid;
+                grid-template-columns: 1.25fr .75fr;
+                gap: 30px;
+                align-items: center;
+                overflow: hidden
+            }
+
+            .eyebrow {
+                display: inline-flex;
+                gap: 8px;
+                align-items: center;
+                color: var(--red-dark);
+                font-weight: 800;
+                font-size: 12px;
+                letter-spacing: 1.2px;
+                text-transform: uppercase
+            }
+
+            .hero h1 {
+                font-size: clamp(36px,5vw,58px);
+                line-height: 1.08;
+                letter-spacing: -2px;
+                margin: 16px 0
+            }
+
+            .hero h1 em {
+                font-style: normal;
+                color: var(--red)
+            }
+
+            .hero p {
+                color: #596579;
+                font-size: 17px;
+                max-width: 570px
+            }
+
+            .actions {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-top: 25px
+            }
+
+            .btn {
+                border: 0;
+                border-radius: 11px;
+                padding: 12px 18px;
+                font-weight: 750;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px
+            }
+
+            .primary {
+                background: var(--red);
+                color: white
+            }
+
+            .primary:hover {
+                background: var(--red-dark)
+            }
+
+            .secondary {
+                background: white;
+                color: var(--ink);
+                border: 1px solid var(--line)
+            }
+
+            .secondary:hover {
+                border-color: #f0a4ae
+            }
+
+            .hero-art {
+                min-height: 250px;
+                display: grid;
+                place-items: center;
+                position: relative
+            }
+
+            .drop {
+                width: 190px;
+                height: 230px;
+                background: linear-gradient(145deg,#ef5366,#bd1f38);
+                border-radius: 58% 58% 55% 55% / 68% 68% 38% 38%;
+                transform: rotate(0deg);
+                box-shadow: 0 25px 45px #d92d4340;
+                display: grid;
+                place-items: center;
+                color: white;
+                font-size: 68px
+            }
+
+            .orbit {
+                position: absolute;
+                width: 260px;
+                height: 260px;
+                border: 1px dashed #e7a4ac;
+                border-radius: 50%
+            }
+
+            .bubble {
+                position: absolute;
+                background: #fff;
+                border: 1px solid var(--line);
+                box-shadow: var(--shadow);
+                padding: 10px 14px;
+                border-radius: 13px;
+                font-weight: 750;
+                font-size: 13px
+            }
+
+            .b1 {
+                top: 24px;
+                right: 0
+            }
+
+            .b2 {
+                bottom: 20px;
+                left: 0
+            }
+
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 15px;
+                margin: 22px 0 36px
+            }
+
+            .stat {
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 15px;
+                padding: 18px 20px
+            }
+
+            .stat strong {
+                font-size: 25px;
+                color: var(--red);
+                display: block
+            }
+
+            .stat span {
+                color: var(--muted);
+                font-size: 13px
+            }
+
+            .section {
+                display: none
+            }
+
+            .section.active {
+                display: block
+            }
+
+            .section-head {
+                margin: 8px 0 24px
+            }
+
+            .section-head h2 {
+                font-size: 30px;
+                letter-spacing: -.8px;
+                margin: 0 0 5px
+            }
+
+            .section-head p {
+                margin: 0;
+                color: var(--muted)
+            }
+
+            .cards {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 16px
+            }
+
+            .info-card,.panel,.form-card {
+                background: white;
+                border: 1px solid var(--line);
+                border-radius: 17px;
+                padding: 22px;
+                box-shadow: 0 5px 20px rgba(16,24,40,.035)
+            }
+
+            .info-icon {
+                width: 43px;
+                height: 43px;
+                background: var(--soft);
+                color: var(--red);
+                border-radius: 12px;
+                display: grid;
+                place-items: center;
+                font-size: 21px;
+                margin-bottom: 12px
+            }
+
+            .info-card h3 {
+                margin: 0 0 6px
+            }
+
+            .info-card p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 14px
+            }
+
+            .form-layout {
+                display: grid;
+                grid-template-columns: 1fr .7fr;
+                gap: 18px;
+                align-items: start
+            }
+
+            .form-card h3 {
+                margin: 0 0 17px
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px
+            }
+
+            .field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px
+            }
+
+            .field.full {
+                grid-column: 1/-1
+            }
+
+            .field label {
+                font-size: 13px;
+                font-weight: 750;
+                color: #344054
+            }
+
+            .field input,.field select,.field textarea {
+                width: 100%;
+                border: 1px solid #d0d5dd;
+                border-radius: 9px;
+                padding: 11px 12px;
+                background: #fff;
+                outline: none;
+                color: var(--ink)
+            }
+
+            .field input:focus,.field select:focus,.field textarea:focus {
+                border-color: var(--red);
+                box-shadow: 0 0 0 3px #d92d4318
+            }
+
+            .field textarea {
+                min-height: 88px;
+                resize: vertical
+            }
+
+            .hint {
+                font-size: 12px;
+                color: var(--muted)
+            }
+
+            .checkline {
+                display: flex;
+                gap: 9px;
+                align-items: flex-start;
+                font-size: 13px;
+                color: #475467
+            }
+
+            .checkline input {
+                margin-top: 4px
+            }
+
+            .note {
+                background: #fff8e8;
+                border: 1px solid #f5dfaa;
+                padding: 15px;
+                border-radius: 12px;
+                color: #76551b;
+                font-size: 13px
+            }
+
+            .searchbar {
+                display: grid;
+                grid-template-columns: 1fr 1fr auto;
+                gap: 12px;
+                background: #fff;
+                padding: 17px;
+                border: 1px solid var(--line);
+                border-radius: 15px;
+                margin-bottom: 18px
+            }
+
+            .results {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 14px
+            }
+
+            .donor {
+                background: white;
+                border: 1px solid var(--line);
+                border-radius: 15px;
+                padding: 18px
+            }
+
+            .donor-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center
+            }
+
+            .blood {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                background: var(--soft);
+                color: var(--red);
+                display: grid;
+                place-items: center;
+                font-weight: 850;
+                font-size: 17px
+            }
+
+            .available {
+                font-size: 11px;
+                color: var(--green);
+                background: #eaf8f1;
+                border-radius: 20px;
+                padding: 5px 9px;
+                font-weight: 750
+            }
+
+            .donor h3 {
+                margin: 12px 0 2px
+            }
+
+            .donor p {
+                margin: 3px 0;
+                color: var(--muted);
+                font-size: 13px
+            }
+
+            .empty {
+                grid-column: 1/-1;
+                text-align: center;
+                padding: 35px;
+                color: var(--muted);
+                background: white;
+                border: 1px dashed #d0d5dd;
+                border-radius: 14px
+            }
+
+            .table-wrap {
+                overflow: auto;
+                background: white;
+                border: 1px solid var(--line);
+                border-radius: 14px
+            }
+
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 620px
+            }
+
+            .data-table th,.data-table td {
+                text-align: left;
+                padding: 13px 15px;
+                border-bottom: 1px solid var(--line);
+                font-size: 13px
+            }
+
+            .data-table th {
+                background: #f9fafb;
+                color: #475467
+            }
+
+            .status {
+                padding: 4px 8px;
+                border-radius: 20px;
+                background: #f2f4f7;
+                font-size: 11px;
+                font-weight: 750
+            }
+
+            .status.open {
+                background: #eaf8f1;
+                color: #16845b
+            }
+
+            .small-btn {
+                border: 1px solid var(--line);
+                background: white;
+                padding: 6px 9px;
+                border-radius: 7px;
+                font-size: 12px;
+                font-weight: 700
+            }
+
+            .small-btn:hover {
+                border-color: var(--red);
+                color: var(--red)
+            }
+
+            .dash-grid {
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                gap: 14px;
+                margin-bottom: 18px
+            }
+
+            .dash-num {
+                font-size: 28px;
+                font-weight: 850;
+                color: var(--red)
+            }
+
+            .footer {
+                background: #151f2b;
+                color: #d0d5dd;
+                padding: 28px 22px
+            }
+
+            .footer-inner {
+                max-width: 1160px;
+                margin: auto;
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                flex-wrap: wrap
+            }
+
+            .footer strong {
+                color: white
+            }
+
+            .footer small {
+                color: #98a2b3
+            }
+
+            .toast {
+                position: fixed;
+                bottom: 22px;
+                right: 22px;
+                background: #17212b;
+                color: white;
+                padding: 13px 17px;
+                border-radius: 11px;
+                box-shadow: var(--shadow);
+                display: none;
+                z-index: 20;
+                max-width: 320px
+            }
+
+            .toast.show {
+                display: block;
+                animation: pop .2s ease
+            }
+
+            @keyframes pop {
+                from {
+                    transform: translateY(8px);
+                    opacity: 0
+                }
+
+                to {
+                    transform: translateY(0);
+                    opacity: 1
+                }
+            }
+
+            @media(max-width: 850px) {
+                .hero {
+                    grid-template-columns:1fr;
+                    padding: 38px 7%
+                }
+
+                .hero-art {
+                    min-height: 220px
+                }
+
+                .cards,.results {
+                    grid-template-columns: repeat(2,1fr)
+                }
+
+                .form-layout {
+                    grid-template-columns: 1fr
+                }
+
+                .nav {
+                    flex-wrap: wrap
+                }
+
+                .navlinks {
+                    display: none;
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: stretch
+                }
+
+                .navlinks.open {
+                    display: flex
+                }
+
+                .navlinks button {
+                    text-align: left
+                }
+
+                .menu {
+                    display: block
+                }
+
+                .navlinks .nav-cta {
+                    text-align: center
+                }
+            }
+
+            @media(max-width: 560px) {
+                main {
+                    padding:18px 14px 45px
+                }
+
+                .hero {
+                    padding: 30px 22px
+                }
+
+                .hero h1 {
+                    font-size: 38px
+                }
+
+                .hero-art {
+                    min-height: 190px
+                }
+
+                .drop {
+                    width: 145px;
+                    height: 175px;
+                    font-size: 50px
+                }
+
+                .orbit {
+                    width: 205px;
+                    height: 205px
+                }
+
+                .stats,.cards,.results,.dash-grid {
+                    grid-template-columns: 1fr
+                }
+
+                .searchbar {
+                    grid-template-columns: 1fr
+                }
+
+                .form-grid {
+                    grid-template-columns: 1fr
+                }
+
+                .field.full {
+                    grid-column: auto
+                }
+
+                .nav {
+                    padding: 12px 14px
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="topbar">
+            <nav class="nav">
+                <div class="brand">
+                    <div class="logo">♥</div>
+                    <span>
+                        LifeLink<small>BLOOD DONATION NETWORK</small>
+                    </span>
+                </div>
+                <button class="menu" id="menuBtn" aria-label="Toggle menu">☰</button>
+                <div class="navlinks" id="navlinks">
+                    <button class="active" data-page="home">Home</button>
+                    <button data-page="search">Find Donors</button>
+                    <button data-page="register">Become a Donor</button>
+                    <button data-page="request">Request Blood</button>
+                    <button data-page="dashboard">Dashboard</button>
+                    <button class="nav-cta" data-page="request">Get Help</button>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section class="section active" id="home">
+                <div class="hero">
+                    <div>
+                        <div class="eyebrow">● Every drop makes a difference</div>
+                        <h1>
+                            Give blood.<br>
+                            <em>Share life.</em>
+                        </h1>
+                        <p>Connect with voluntary blood donors, hospitals and people who need support. A simple connection can make a meaningful difference.</p>
+                        <div class="actions">
+                            <button class="btn primary" data-go="register">
+                                Become a donor <span>→</span>
+                            </button>
+                            <button class="btn secondary" data-go="search">Find a donor</button>
+                        </div>
+                    </div>
+                    <div class="hero-art">
+                        <div class="orbit"></div>
+                        <div class="drop">♥</div>
+                        <div class="bubble b1">One community. Many lives.</div>
+                        <div class="bubble b2">✦ Volunteer-powered</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <strong id="statDonors">0</strong>
+                        <span>Registered demo donors</span>
+                    </div>
+                    <div class="stat">
+                        <strong id="statRequests">0</strong>
+                        <span>Blood requests created</span>
+                    </div>
+                    <div class="stat">
+                        <strong>24/7</strong>
+                        <span>Website access</span>
+                    </div>
+                </div>
+                <div class="section-head">
+                    <h2>How LifeLink works</h2>
+                    <p>A simple process to help people coordinate blood donation.</p>
+                </div>
+                <div class="cards">
+                    <article class="info-card">
+                        <div class="info-icon">♙</div>
+                        <h3>1. Register</h3>
+                        <p>Donors can create a profile, choose their blood group and share a broad location.</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="info-icon">⌕</div>
+                        <h3>2. Find support</h3>
+                        <p>Requesters can search consenting donors by blood group and area.</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="info-icon">♡</div>
+                        <h3>3. Coordinate</h3>
+                        <p>Create a request, track its status and coordinate with the relevant organization.</p>
+                    </article>
+                </div>
+                <div class="note" style="margin-top:20px">
+                    <strong>Important:</strong>
+                    This website supports donor discovery and coordination only. It does not determine medical eligibility or blood compatibility. Final screening and transfusion decisions must be made by qualified healthcare professionals.
+                </div>
+            </section>
+            <section class="section" id="register">
+                <div class="section-head">
+                    <h2>Become a blood donor</h2>
+                    <p>Register your details and choose whether you are available to be contacted.</p>
+                </div>
+                <div class="form-layout">
+                    <form class="form-card" id="donorForm">
+                        <h3>Donor registration</h3>
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="dName">Full name *</label>
+                                <input id="dName" required maxlength="60" placeholder="Enter your name">
+                            </div>
+                            <div class="field">
+                                <label for="dBlood">Blood group *</label>
+                                <select id="dBlood" required>
+                                    <option value="">Select group</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>AB+</option>
+                                    <option>AB-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="dCity">City / area *</label>
+                                <input id="dCity" required maxlength="60" placeholder="e.g. Chennai">
+                            </div>
+                            <div class="field">
+                                <label for="dContact">Contact preference</label>
+                                <select id="dContact">
+                                    <option value="Email">Email</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="Through organization">Through organization</option>
+                                </select>
+                            </div>
+                            <div class="field full">
+                                <label for="dEmail">Email address (demo only)</label>
+                                <input id="dEmail" type="email" placeholder="you@example.com">
+                            </div>
+                            <div class="field full">
+                                <label class="checkline">
+                                    <input type="checkbox" id="dAvailable" checked>I am currently willing to receive donation requests.
+                                </label>
+                            </div>
+                            <div class="field full">
+                                <label class="checkline">
+                                    <input type="checkbox" id="dConsent" required>I consent to my name, blood group and broad area being shown in this local demo to help requesters discover donors. *
+                                </label>
+                            </div>
+                            <div class="field full">
+                                <button class="btn primary" type="submit">Create donor profile →</button>
+                                <span class="hint">Fields marked * are required. Do not enter sensitive personal information in this demo.</span>
+                            </div>
+                        </div>
+                    </form>
+                    <aside class="form-card">
+                        <div class="info-icon">🛡</div>
+                        <h3>Your privacy matters</h3>
+                        <p style="color:var(--muted);font-size:14px">The SRS requires donor contact information to be shared only with appropriate consent. This demo displays only a donor's name, blood group and broad area. It does not publish email addresses or phone numbers.</p>
+                        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+                        <div class="note">This is a front-end demonstration. It does not verify identity, medical eligibility or donor availability.</div>
+                    </aside>
+                </div>
+            </section>
+            <section class="section" id="search">
+                <div class="section-head">
+                    <h2>Find blood donors</h2>
+                    <p>Search donors who have chosen to make their profiles discoverable.</p>
+                </div>
+                <div class="searchbar">
+                    <div class="field">
+                        <label for="sBlood">Blood group</label>
+                        <select id="sBlood">
+                            <option value="">All blood groups</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="sCity">City / area</label>
+                        <input id="sCity" placeholder="Enter area or city">
+                    </div>
+                    <button class="btn primary" id="searchBtn" style="align-self:end">Search donors</button>
+                </div>
+                <div class="results" id="donorResults"></div>
+            </section>
+            <section class="section" id="request">
+                <div class="section-head">
+                    <h2>Submit a blood request</h2>
+                    <p>Share the request details so it can be coordinated with donors or an authorized organization.</p>
+                </div>
+                <div class="form-layout">
+                    <form class="form-card" id="requestForm">
+                        <h3>Request details</h3>
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="rName">Requester name *</label>
+                                <input id="rName" required maxlength="60" placeholder="Your name">
+                            </div>
+                            <div class="field">
+                                <label for="rBlood">Blood group needed *</label>
+                                <select id="rBlood" required>
+                                    <option value="">Select group</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>AB+</option>
+                                    <option>AB-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="rCity">City / area *</label>
+                                <input id="rCity" required maxlength="60" placeholder="Hospital area / city">
+                            </div>
+                            <div class="field">
+                                <label for="rWhen">When is it needed? *</label>
+                                <select id="rWhen" required>
+                                    <option value="">Select urgency</option>
+                                    <option>As soon as possible</option>
+                                    <option>Within 24 hours</option>
+                                    <option>Within 2–3 days</option>
+                                    <option>Planned donation</option>
+                                </select>
+                            </div>
+                            <div class="field full">
+                                <label for="rOrg">Hospital / blood bank (optional)</label>
+                                <input id="rOrg" maxlength="100" placeholder="Name of hospital or blood bank">
+                            </div>
+                            <div class="field full">
+                                <label for="rDetails">Additional information (optional)</label>
+                                <textarea id="rDetails" maxlength="500" placeholder="Add relevant coordination details. Avoid sharing private medical records."></textarea>
+                            </div>
+                            <div class="field full">
+                                <label class="checkline">
+                                    <input type="checkbox" id="rConfirm" required>I understand this request must be verified by the hospital or blood bank and that this website does not provide medical advice. *
+                                </label>
+                            </div>
+                            <div class="field full">
+                                <button class="btn primary" type="submit">Submit blood request →</button>
+                            </div>
+                        </div>
+                    </form>
+                    <aside class="form-card">
+                        <div class="info-icon">☎</div>
+                        <h3>Need urgent assistance?</h3>
+                        <p style="color:var(--muted);font-size:14px">Contact the treating hospital or a licensed blood bank directly for urgent needs. Use this website as a coordination aid, not as an emergency medical service.</p>
+                        <div class="note" style="margin-top:18px">Requests submitted here are stored only in this browser for demonstration. No email or SMS notification is sent.</div>
+                    </aside>
+                </div>
+            </section>
+            <section class="section" id="dashboard">
+                <div class="section-head">
+                    <h2>Community dashboard</h2>
+                    <p>Demo overview of donor profiles and blood requests stored in this browser.</p>
+                </div>
+                <div class="dash-grid">
+                    <div class="panel">
+                        <span class="hint">Total donor profiles</span>
+                        <div class="dash-num" id="dashDonors">0</div>
+                    </div>
+                    <div class="panel">
+                        <span class="hint">Available donors</span>
+                        <div class="dash-num" id="dashAvailable">0</div>
+                    </div>
+                    <div class="panel">
+                        <span class="hint">Total requests</span>
+                        <div class="dash-num" id="dashRequests">0</div>
+                    </div>
+                </div>
+                <div class="panel" style="margin-bottom:18px">
+                    <h3>Donor profiles</h3>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Blood group</th>
+                                    <th>Area</th>
+                                    <th>Availability</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donorTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Blood requests</h3>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Requester</th>
+                                    <th>Blood group</th>
+                                    <th>Area</th>
+                                    <th>Urgency</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requestTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="hint" style="margin-top:13px">Admin moderation in a real deployment must require an authenticated administrator account. The controls here are for local demonstration only.</p>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer-inner">
+                <div>
+                    <strong>♥ LifeLink</strong>
+                    <br>
+                    <small>Connecting people through voluntary blood donation.</small>
+                </div>
+                <small>Student project demonstration · Blood Donation Website</small>
+            </div>
+        </footer>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <script>
+            const $ = id => document.getElementById(id);
+            const getData = key => {
+                try {
+                    return JSON.parse(localStorage.getItem(key) || '[]');
+                } catch {
+                    return [];
+                }
+            }
+            ;
+            const saveData = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+            let donors = getData('lifelink_donors');
+            let requests = getData('lifelink_requests');
+            function toast(message) {
+                const t = $('toast');
+                t.textContent = message;
+                t.classList.add('show');
+                setTimeout( () => t.classList.remove('show'), 3000)
+            }
+            function showPage(page) {
+                document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === page));
+                document.querySelectorAll('.navlinks button[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+                $('navlinks').classList.remove('open');
+                if (page === 'search')
+                    renderDonors();
+                if (page === 'dashboard')
+                    renderDashboard();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                })
+            }
+            document.querySelectorAll('[data-page]').forEach(b => b.addEventListener('click', () => showPage(b.dataset.page)));
+            document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => showPage(b.dataset.go)));
+            $('menuBtn').addEventListener('click', () => $('navlinks').classList.toggle('open'));
+            function updateStats() {
+                $('statDonors').textContent = donors.length;
+                $('statRequests').textContent = requests.length
+            }
+            $('donorForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const donor = {
+                    id: Date.now(),
+                    name: $('dName').value.trim(),
+                    blood: $('dBlood').value,
+                    city: $('dCity').value.trim(),
+                    contact: $('dContact').value,
+                    email: $('dEmail').value.trim(),
+                    available: $('dAvailable').checked,
+                    consent: $('dConsent').checked
+                };
+                if (!donor.consent) {
+                    toast('Please provide consent to continue.');
+                    return
+                }
+                donors.push(donor);
+                saveData('lifelink_donors', donors);
+                e.target.reset();
+                $('dAvailable').checked = true;
+                updateStats();
+                renderDashboard();
+                toast('Donor profile created successfully.');
+                showPage('dashboard')
+            }
+            );
+            $('requestForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const req = {
+                    id: Date.now(),
+                    name: $('rName').value.trim(),
+                    blood: $('rBlood').value,
+                    city: $('rCity').value.trim(),
+                    when: $('rWhen').value,
+                    org: $('rOrg').value.trim(),
+                    details: $('rDetails').value.trim(),
+                    status: 'Open'
+                };
+                requests.push(req);
+                saveData('lifelink_requests', requests);
+                e.target.reset();
+                updateStats();
+                renderDashboard();
+                toast('Blood request saved in this browser.');
+                showPage('dashboard')
+            }
+            );
+            function renderDonors() {
+                const blood = $('sBlood').value
+                  , city = $('sCity').value.trim().toLowerCase();
+                const list = donors.filter(d => d.consent && d.available && (!blood || d.blood === blood) && (!city || d.city.toLowerCase().includes(city)));
+                const out = $('donorResults');
+                if (!list.length) {
+                    out.innerHTML = '<div class="empty">No matching available donors found in this demo.<br><span class="hint">Try another blood group or area, or register a donor profile.</span></div>';
+                    return
+                }
+                out.innerHTML = list.map(d => `<article class="donor"><div class="donor-top"><div class="blood">${escapeHtml(d.blood)}</div><span class="available">● Available</span></div><h3>${escapeHtml(d.name)}</h3><p>⌖ ${escapeHtml(d.city)}</p><p>Contact preference: ${escapeHtml(d.contact)}</p><p class="hint">Contact details are not publicly displayed.</p></article>`).join('')
+            }
+            function escapeHtml(s) {
+                return String(s ?? '').replace(/[&<>"']/g, c => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[c]))
+            }
+            $('searchBtn').addEventListener('click', renderDonors);
+            $('sBlood').addEventListener('change', renderDonors);
+            $('sCity').addEventListener('input', renderDonors);
+            function renderDashboard() {
+                $('dashDonors').textContent = donors.length;
+                $('dashAvailable').textContent = donors.filter(d => d.available).length;
+                $('dashRequests').textContent = requests.length;
+                $('donorTable').innerHTML = donors.length ? donors.map(d => `<tr><td>${escapeHtml(d.name)}</td><td>${escapeHtml(d.blood)}</td><td>${escapeHtml(d.city)}</td><td><span class="status ${d.available ? 'open' : ''}">${d.available ? 'Available' : 'Unavailable'}</span></td><td><button class="small-btn" onclick="toggleDonor(${d.id})">Toggle</button> <button class="small-btn" onclick="removeDonor(${d.id})">Delete</button></td></tr>`).join('') : '<tr><td colspan="5">No donor profiles yet.</td></tr>';
+                $('requestTable').innerHTML = requests.length ? requests.map(r => `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.blood)}</td><td>${escapeHtml(r.city)}</td><td>${escapeHtml(r.when)}</td><td><span class="status ${r.status === 'Open' ? 'open' : ''}">${escapeHtml(r.status)}</span></td><td><button class="small-btn" onclick="toggleRequest(${r.id})">Update status</button> <button class="small-btn" onclick="removeRequest(${r.id})">Delete</button></td></tr>`).join('') : '<tr><td colspan="6">No blood requests yet.</td></tr>';
+            }
+            function toggleDonor(id) {
+                donors = donors.map(d => d.id === id ? {
+                    ...d,
+                    available: !d.available
+                } : d);
+                saveData('lifelink_donors', donors);
+                renderDashboard();
+                renderDonors();
+                updateStats();
+                toast('Donor availability updated.')
+            }
+            function removeDonor(id) {
+                if (!confirm('Delete this demo donor profile?'))
+                    return;
+                donors = donors.filter(d => d.id !== id);
+                saveData('lifelink_donors', donors);
+                renderDashboard();
+                renderDonors();
+                updateStats();
+                toast('Donor profile deleted.')
+            }
+            function toggleRequest(id) {
+                requests = requests.map(r => r.id === id ? {
+                    ...r,
+                    status: r.status === 'Open' ? 'In progress' : r.status === 'In progress' ? 'Closed' : 'Open'
+                } : r);
+                saveData('lifelink_requests', requests);
+                renderDashboard();
+                updateStats();
+                toast('Request status updated.')
+            }
+            function removeRequest(id) {
+                if (!confirm('Delete this demo request?'))
+                    return;
+                requests = requests.filter(r => r.id !== id);
+                saveData('lifelink_requests', requests);
+                renderDashboard();
+                updateStats();
+                toast('Request deleted.')
+            }
+            updateStats();
+            renderDashboard();
+            renderDonors();
+        </script>
+    </body>
+</html>
